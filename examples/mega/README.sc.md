@@ -15,8 +15,8 @@ Download the [processed data](https://dl.fbaipublicfiles.com/mega/data/speech_co
 # Set up training envs. Same for all tasks.
 seed=$SEED
 
-DATA=/path/to/data-dir
-SAVE=/path/to/save-dir
+DATA=/Users/xbno/ml/mega/speech_commands
+SAVE=/Users/xbno/ml/mega/saved
 CHUNK=1000
 mkdir -p ${SAVE}
 cp $0 ${SAVE}/run.sh

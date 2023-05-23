@@ -133,3 +133,6 @@ dmypy.json
 *.iml
 *.sublime-project
 *.sublime-workspace
+
+# added
+speech_commands

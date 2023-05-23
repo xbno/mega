@@ -80,7 +80,7 @@ class SpeechCommandsTask(FairseqTask):
             dropped_rate=self.args.sc_dropped_rate,
             path=self.args.data,
             all_classes=self.args.sc_all_classes,
-        )
+        ) # train dataset for sc shape 24483, 16000, 1 (samples,len,channels)
 
         logger.info("Loaded {0} with #samples: {1}".format(split, len(dataset)))
 
