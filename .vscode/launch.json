@@ -19,12 +19,15 @@
             "program": "train.py",
             "console": "integratedTerminal",
             "justMyCode": false,
-            "env": {
-                "PYTORCH_ENABLE_MPS_FALLBACK": 1
-            },
+            // "env": {
+            //     "PYTORCH_ENABLE_MPS_FALLBACK": "1"
+            // },
+            // 2023-05-25 13:39:44 | INFO | train_inner | epoch 001:    100 / 1225 loss=3.318, accuracy=10.6, wps=48304.1, ups=0.15, wpb=320000, bsz=20, num_updates=100, lr=0.000100099, gnorm=1.162, clip=54, train_wall=662, wall=663
+            // 2023-05-25 13:50:56 | INFO | train_inner | epoch 001:    200 / 1225 loss=3.302, accuracy=14.05, wps=47642.1, ups=0.15, wpb=320000, bsz=20, num_updates=200, lr=0.000200098, gnorm=1.16, clip=54, train_wall=671, wall=1335
+            // 2023-05-25 14:01:51 | INFO | train_inner | epoch 001:    300 / 1225 loss=3.261, accuracy=16.75, wps=48869.8, ups=0.15, wpb=320000, bsz=20, num_updates=300, lr=0.000300097, gnorm=1.923, clip=89, train_wall=655, wall=1989
             "args": [
-                // "/Users/xbno/ml/mega/speech_commands",
-                "/Users/xbno/ml/mega/speech_commands_mc",
+                "/Users/xbno/ml/mega/speech_commands",
+                // "/Users/xbno/ml/mega/speech_commands_mc",
                 "--seed",
                 "42",
                 "--ddp-backend",
@@ -34,6 +37,8 @@
                 "mega_sc_raw_base",
                 "--task",
                 "speech_commands",
+                "--encoder-layers",
+                "2",
                 "--encoder-embed-dim",
                 "16",
                 "--encoder-hidden-dim",

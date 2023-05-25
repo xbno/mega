@@ -47,7 +47,7 @@ class MegaSCRawEncoder(nn.Module):
         self,
         num_encoder_layers: int = 6,
         embedding_dim: int = 512,
-        channel_dim: int = 10,
+        channel_dim: int = 1,
         hidden_dim: int = 1024,
         ffn_hidden_dim: int = 1024,
         z_dim: int = 128,

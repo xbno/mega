@@ -44,7 +44,7 @@ class Trainer(object):
         shared_params = _catalog_shared_params(model)
 
         self.tpu = getattr(args, 'tpu', False)
-        self.mps = getattr(args, 'mps', True)
+        self.mps = getattr(args, 'mps', False)
         self.cuda = torch.cuda.is_available() and not args.cpu and not self.tpu and not self.mps
         if self.cuda:
             self.device = torch.device('cuda')
