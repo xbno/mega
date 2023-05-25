@@ -20,7 +20,7 @@ from .scale_norm import ScaleNorm
 from .root_mean_square_norm import RMSNorm
 from .sequence_norm import SequenceNorm
 from .learned_positional_embedding import LearnedPositionalEmbedding
-from .real_number_embedding import RealNumberEmbedding
+from .real_number_embedding import RealNumberEmbedding, RealNumberMultiChannelEmbedding
 from .positional_embedding import PositionalEmbedding
 from .relative_positional_bias import SimpleRelativePositionalBias, RotaryRelativePositionalBias
 from .multihead_attention import MultiheadAttention
@@ -64,6 +64,7 @@ __all__ = [
     'LunarMultiheadAttention',
     'LunarCausalAttention',
     'RealNumberEmbedding',
+    'RealNumberMultiChannelEmbedding',
     'PositionalEmbedding',
     'SimpleRelativePositionalBias',
     'RotaryRelativePositionalBias',

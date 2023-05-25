@@ -81,6 +81,13 @@ def move_to_cuda(sample):
     return apply_to_sample(_move_to_cuda, sample)
 
 
+def move_to_mps(sample):
+    def _move_to_mps(tensor):
+        return tensor.to('mps')
+
+    return apply_to_sample(_move_to_mps, sample)
+
+
 def move_to_cpu(sample):
     def _move_to_cpu(tensor):
         # PyTorch has poor support for half tensors (float16) on CPU.

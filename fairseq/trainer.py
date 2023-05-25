@@ -44,11 +44,14 @@ class Trainer(object):
         shared_params = _catalog_shared_params(model)
 
         self.tpu = getattr(args, 'tpu', False)
-        self.cuda = torch.cuda.is_available() and not args.cpu and not self.tpu
+        self.mps = getattr(args, 'mps', True)
+        self.cuda = torch.cuda.is_available() and not args.cpu and not self.tpu and not self.mps
         if self.cuda:
             self.device = torch.device('cuda')
         elif self.tpu:
             self.device = utils.get_tpu_device(args)
+        elif self.mps:
+            self.device = torch.device('mps')
         else:
             self.device = torch.device('cpu')
 
@@ -867,6 +870,9 @@ class Trainer(object):
 
         if self.cuda:
             sample = utils.move_to_cuda(sample)
+
+        if self.mps:
+            sample = utils.move_to_mps(sample)
 
         def apply_half(t):
             if t.dtype is torch.float32:

@@ -12,6 +12,7 @@ import torch.nn as nn
 from fairseq.modules import (
     SequenceNorm,
     RealNumberEmbedding,
+    RealNumberMultiChannelEmbedding,
     LayerDropModuleList,
     MegaSentenceEncoderLayer,
 )
@@ -46,6 +47,7 @@ class MegaSCRawEncoder(nn.Module):
         self,
         num_encoder_layers: int = 6,
         embedding_dim: int = 512,
+        channel_dim: int = 10,
         hidden_dim: int = 1024,
         ffn_hidden_dim: int = 1024,
         z_dim: int = 128,
@@ -74,11 +76,13 @@ class MegaSCRawEncoder(nn.Module):
         self.layerdrop = layerdrop
         self.max_seq_len = max_seq_len
         self.embedding_dim = embedding_dim
+        self.channel_dim = channel_dim
         self.traceable = traceable
         self.tpu = False  # whether we're on TPU
         self.sen_rep_type = sen_rep_type
 
-        self.embed_tokens = RealNumberEmbedding(embedding_dim)
+        # self.embed_tokens = RealNumberEmbedding(embedding_dim)
+        self.embed_tokens = RealNumberMultiChannelEmbedding(embedding_dim,channel_dim)
 
         if self.layerdrop > 0.0:
             self.layers = LayerDropModuleList(p=self.layerdrop)
@@ -164,7 +168,11 @@ class MegaSCRawEncoder(nn.Module):
             last_state_only: bool = False,
     ) -> Tuple[Union[torch.Tensor, List[torch.Tensor]], torch.Tensor]:
 
-        bsz, seq_len = tokens.size()
+        if len(tokens.shape) == 2:
+            bsz, seq_len = tokens.size()
+            num_channels = 1
+        else:    
+            bsz, seq_len, num_channels = tokens.size()
         assert self.chunk_size <= 0 or seq_len % self.chunk_size == 0, 'sequence length {} must be divided by chunk size {}'.format(seq_len, self.chunk_size)
 
         padding_mask = None
